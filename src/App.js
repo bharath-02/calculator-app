@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
   const [input, setInput] = useState("");
@@ -8,13 +8,17 @@ function App() {
   // Handle button clicks
   const handleClick = (value) => {
     if (value === "=") {
-      // Evaluate the expression and handle errors
-      try {
-        // Use eval() to calculate the result
-        const evaluatedResult = eval(input);
-        setResult(evaluatedResult);
-      } catch (error) {
+      // Check if input is empty and display "Error" if so
+      if (input.trim() === "") {
         setResult("Error");
+      } else {
+        // Evaluate the expression and handle errors
+        try {
+          const evaluatedResult = eval(input).toFixed(2);
+          setResult(evaluatedResult);
+        } catch (error) {
+          setResult("Error");
+        }
       }
     } else if (value === "C") {
       // Clear the input and result
@@ -32,7 +36,24 @@ function App() {
       <input type="text" value={input} readOnly />
       <div>{result}</div>
       <div className="calculator-grid">
-        {["7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/"].map((item, index) => (
+        {[
+          "7",
+          "8",
+          "9",
+          "+",
+          "4",
+          "5",
+          "6",
+          "-",
+          "1",
+          "2",
+          "3",
+          "*",
+          "C",
+          "0",
+          "=",
+          "/",
+        ].map((item, index) => (
           <button key={index} onClick={() => handleClick(item)}>
             {item}
           </button>
